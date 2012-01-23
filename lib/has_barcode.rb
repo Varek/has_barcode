@@ -21,6 +21,11 @@ module HasBarcode
       define_method args.first do
         if options[:type] == :code_128
           @@barcode_configurations[args.first].barcode_class.new(options[:value].call(self), 'A')
+        elsif options[:type] == :qr_code
+          qrcode_options = {}
+          qrcode_options[:level] = options[:level] if options[:level]
+          qrcode_options[:size] = options[:size] if options[:size]
+          @@barcode_configurations[args.first].barcode_class.new(options[:value].call(self),qrcode_options)
         else
           @@barcode_configurations[args.first].barcode_class.new(options[:value].call(self))
         end

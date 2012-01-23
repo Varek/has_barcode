@@ -35,4 +35,14 @@ describe "an instance that has a barcode" do
   end
   
 end
+
+describe "A class that has a qrcode" do
+  before(:each) do
+    @model = HasPngQrCode.new
+  end
+  
+  it "should have qrcode data that corresponds to the outputter" do
+    @model.qrcode_data.should eql(Barby::QrCode.new(@model.random_string_of_numbers, :level => :q).to_png)
+  end
+
 end
